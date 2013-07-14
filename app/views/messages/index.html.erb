@@ -1,12 +1,14 @@
 <div class="chatroom">
-	<% @messages.each do |m| %>
-		<div class="message">
-			<h4><%= m.from_user %></h4>
-			<p><%= m.text %></p>
-		</div>
-	<% end %>
+	<div class="messages">
+		<% @messages.each do |m| %>
+			<div class="message">
+				<h4><%= m.from_user %></h4>
+				<p><%= m.text %></p>
+			</div>
+		<% end %>
+	</div>
 	<div class="message_form">
-		<%= simple_form_for @message do |f| %>
+		<%= simple_form_for @message, remote: true do |f| %>
 			<%= f.input :from_user %>
 			<%= f.input :text %>
 			<%= f.button :submit %>

@@ -10,9 +10,15 @@ class MessagesController < ApplicationController
    def create
 	   @m = Message.new(message_params)
 	   if @m.save
-		   redirect_to root_url
+		   respond_to do |format|
+		   	format.html { redirect_to root_url }
+		   	format.js
+		   end
 	   else
-		   render :index
+		   respond_to do |format|
+		   	format.html { render :index }
+		   	format.js
+		   end
 	   end
    end
 
