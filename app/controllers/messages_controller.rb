@@ -17,9 +17,10 @@ class MessagesController < ApplicationController
    end
 
   def stream
+	  @messages = Message.find(:all, order: "id desc", limit: 10).reverse
 	  response.headers['Content-Type'] = 'text/event-stream'
 	  sse = Streamer::SSE.new(response.stream)
-	  sse.write("Hey Shehzan")
+	  sse.write(@messages.to_json)
 =begin
 	  redis = Redis.new
 	  redis.subscribe('messages.create') do |on|
