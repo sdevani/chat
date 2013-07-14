@@ -5,7 +5,9 @@
     <title><%= content_for?(:title) ? yield(:title) : "Chat" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Chat" %>">
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "messages", :media => "all" %>
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "messages" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
   </head>
@@ -27,6 +29,7 @@
             </div>
           </div>
           <footer>
+	  	<%= debug params %>
           </footer>
         </div>
       </div> <!--! end of .container -->

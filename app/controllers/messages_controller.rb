@@ -1,11 +1,19 @@
 require 'streamer/sse'
-
-class HomeController < ApplicationController
+class MessagesController < ApplicationController
 	include ActionController::Live
 
    def index
 	   @message = Message.new
 	   @messages = Message.all
+   end
+
+   def create
+	   @m = Message.new(message_params)
+	   if @m.save
+		   redirect_to root_url
+	   else
+		   render :index
+	   end
    end
 
   def stream
@@ -44,6 +52,10 @@ class HomeController < ApplicationController
   private
   def sse(object, options = {})
 	  (options.map{|k,v| "#{k}: #{v}" } << "data: #{JSON.dump object}".join("\n") + "\n\n")
+  end
+
+  def message_params
+	  params.require(:message).permit(:from_user, :text)
   end
 
 end
