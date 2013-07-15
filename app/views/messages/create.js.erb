@@ -1,5 +1,6 @@
 <% if @m.errors.messages.empty? %>
 	insertNewMessage("<%= escape_javascript @m.to_json.html_safe %>");
+	$('#message_text').val("");
 <% else %>
 	alert("You have a blank field!");
 <% end %>
