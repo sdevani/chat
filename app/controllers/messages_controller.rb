@@ -7,6 +7,11 @@ class MessagesController < ApplicationController
 	   @messages = Message.all(order: "created_at desc", limit: 30)
    end
 
+   def history
+	   @message = Message.new
+	   @messages = Message.paginate(page: params[:page], per_page: 30).order("created_at desc")
+   end
+
    def create
 	   @m = Message.new(message_params)
 	   if @m.save

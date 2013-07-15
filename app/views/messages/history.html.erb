@@ -1,4 +1,4 @@
-<div class="chatroom">
+<div class="">
 	<%= render 'form' %>
 	<div class="chats">
 		<% @messages.each do |m| %>
@@ -8,6 +8,6 @@
 			</div>
 		<% end %>
 	</div>
-	<%= link_to 'View all Messages', chat_history_path %>
+	<%= will_paginate @posts %>
 </div>
 
