@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
    def index
 	   @message = Message.new
-	   @messages = Message.all
+	   @messages = Message.all(order: "created_at desc", limit: 30)
    end
 
    def create
@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
    end
 
   def stream
-	  @messages = Message.find(:all, order: "id desc", limit: 10).reverse
+	  @messages = Message.all(order: "created_at desc", limit: 30)
 	  response.headers['Content-Type'] = 'text/event-stream'
 	  sse = Streamer::SSE.new(response.stream)
 	  sse.write(@messages.to_json)

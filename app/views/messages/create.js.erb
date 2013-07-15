@@ -1,9 +1,5 @@
 <% if @m.errors.messages.empty? %>
-	var new_div = "<div class='message_" + @m.id + "'>";
-	new_div += "<h4>" + @m.from_user + "</h4>";
-	new_div += "<p>" + @m.text + "</p>";
-	new_div += "</div>"
-	$('.chats').append($(new_div));
+	insertNewMessage("<%= escape_javascript @m.to_json.html_safe %>");
 <% else %>
 	alert("You have a blank field!");
 <% end %>
