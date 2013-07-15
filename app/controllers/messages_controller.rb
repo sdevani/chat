@@ -8,6 +8,7 @@ class MessagesController < ApplicationController
    end
 
    def history
+	   debugger
 	   @message = Message.new
 	   @messages = Message.paginate(page: params[:page], per_page: 30).order("created_at desc")
    end
