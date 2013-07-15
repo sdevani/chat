@@ -8,5 +8,6 @@
 # Environment variables (ENV['...']) can be set in the file config/application.yml.
 # See http://railsapps.github.io/rails-environment-variables.html
 
-Message.create(text: "Hey", from_user: "Shehzan");
-Message.create(text: "What's up?", from_user: "Zuck");
+50.times do |i|
+	Message.create(text: "Text #{i}", from_user: "User #{i}")
+end
