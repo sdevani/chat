@@ -5,15 +5,19 @@ class MessagesController < ApplicationController
    def index
 	   @message = Message.new
 	   @messages = Message.all(order: "created_at desc", limit: 30)
+	   @user_name = user_name
+	   @signed_in = is_signed_in?
    end
 
    def history
 	   @message = Message.new
 	   @messages = Message.paginate(page: params[:page], per_page: 30).order("created_at desc")
+	   @user_name = user_name
    end
 
    def create
 	   @m = Message.new(message_params)
+	   @m.from_user = user_name
 	   if @m.save
 		   respond_to do |format|
 		   	format.html { redirect_to root_url }
@@ -69,5 +73,19 @@ class MessagesController < ApplicationController
   def message_params
 	  params.require(:message).permit(:from_user, :text)
   end
+
+	def is_signed_in?
+	  @signed_in = (cookies.permanent.signed[:authenticated] == true)
+	end
+
+	def user_name
+	  @user_name = cookies.permanent.signed[:user_name]
+	end
+
+	def authenticate
+		unless is_signed_in?
+			redirect_to login_path
+		end
+	end
 
 end

@@ -1,7 +1,12 @@
 <div class="message_form">
-	<%= simple_form_for @message, remote: true do |f| %>
-		<%= f.input :from_user %>
-		<%= f.input :text %>
-		<%= f.button :submit %>
+	<% if @signed_in %>
+		<%= simple_form_for @message, remote: true do |f| %>
+			<h4><%= @user_name %></h4>
+			<%= f.input :text %>
+			<%= f.button :submit %>
+		<% end %>
+		<%= link_to "Sign out", logout_path %>
+	<% else %>
+		<%= link_to "Sign in using Github (Make sure you're logged into the right github account)", '/auth/github' %>
 	<% end %>
 </div>
